@@ -3,7 +3,7 @@
 ## Features:
 - Create and store item from inventory
 - Show, update or destroy item from inventory
-- Search item from inventory per name or ubication order by created at.
+- Search item from inventory per name or ubication ordering by created at.
 
 ## Item model description:
 - id
