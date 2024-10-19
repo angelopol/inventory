@@ -1,2 +1,10 @@
 inventory.db
 __pycache__/
+build/
+dist/
+main.spec
+logo.ico
+logo.png
+icon.png
+venv/
+inventory.spec
