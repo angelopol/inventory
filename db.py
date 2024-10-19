@@ -19,6 +19,19 @@ def GetItems():
     cursor.close()
     return items
 
+def GetItemsByName(name):
+    cursor = GetConnection().cursor()
+    cursor.execute("SELECT * FROM inventory WHERE name LIKE '%' || ? || '%' ORDER BY created_at", (name,))
+    items = cursor.fetchall()
+    cursor.close()
+    return items
+
+def GetItemsByUbication(ubication):
+    cursor = GetConnection().cursor()
+    cursor.execute("SELECT * FROM inventory WHERE ubication LIKE '%' || ? || '%' ORDER BY created_at", (ubication,))
+    items = cursor.fetchall()
+    cursor.close()
+    return items
 
 def StoreItem(name, ubication):
     connection = GetConnection()

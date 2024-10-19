@@ -64,9 +64,9 @@ class items:
         self.content = ft.Container()
         self.update()
 
-    def MakeContent(self):
+    def MakeContent(self, function):
         elements = []
-        InventoryItems = GetItems()
+        InventoryItems = function()
         if len(InventoryItems) == 0:
             self.content.content = ft.Text("Items not found.", style=ft.TextStyle(size=20))
             return
@@ -82,6 +82,6 @@ class items:
 
         self.content.content = ft.Column(elements, alignment=ft.MainAxisAlignment.START, expand=True, scroll=ft.ScrollMode.ALWAYS)
 
-    def update(self):
-        self.MakeContent()
+    def update(self, function=GetItems):
+        self.MakeContent(function)
         self.page.update()

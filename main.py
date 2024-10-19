@@ -9,6 +9,6 @@ def main(page: ft.Page):
 
     inventory = items(page)
     modal = AddModal(page, inventory)
-    page.add(ft.ResponsiveRow([dropdown(), text(), add(lambda _: modal.open()), inventory.content]))
+    page.add(ft.ResponsiveRow([dropdown(), text(inventory), add(lambda _: modal.open()), inventory.content]))
 
 ft.app(main)
