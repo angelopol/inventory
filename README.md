@@ -6,10 +6,10 @@
 - Search item from inventory per name or ubication order by created at.
 
 ## Item model description:
-- id (Primary key)
-- name (String - 500)
-- ubication (String - 1000)
-- created_at (datetime or timestamp)
+- id
+- name
+- ubication
+- created_at
 
 ## Technologies:
 - Python

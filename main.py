@@ -7,9 +7,8 @@ def main(page: ft.Page):
     page.title = "Inventory"
     page.theme = ft.Theme(font_family="Nunito")
 
-    modal = AddModal(page)
-    page.add(ft.ResponsiveRow([dropdown(), text(), add(lambda _: modal.open())]))
-
-    items(page)
+    inventory = items(page)
+    modal = AddModal(page, inventory)
+    page.add(ft.ResponsiveRow([dropdown(), text(), add(lambda _: modal.open()), inventory.content]))
 
 ft.app(main)

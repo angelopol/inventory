@@ -1,54 +1,51 @@
 import flet as ft
 from variables import GetVariables
+from ItemForm import alert, ItemForm, ValidateInputs
+from db import StoreItem
 
 variables = GetVariables()
-
+    
 class AddModal:
-    def __init__(self, page):
+    def __init__(self, page, inventory):
         self.page = page
+        self.inventory = inventory
+
+    def AddItem(self):
+        validate = ValidateInputs(self.name.value, self.ubication.value, self.page)
+        if validate: return validate
+        
+        StoreItem(self.name.value, self.ubication.value)
+        self.inventory.update()
+        alert(self.page, "Item added.")
+
+    def content(self):
+        content, self.name, self.ubication = ItemForm()
+        return content
+
+    def open(self):
         self.modal = ft.AlertDialog(
             modal=True,
             title=ft.Text("Add item to inventory."),
             actions=[
                 ft.ElevatedButton(
                     content=ft.Text("Add", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20, color="#D4E1FF")),
-                    on_click=None
+                    on_click=lambda _: self.AddItem()
                 ),
                 ft.ElevatedButton(
                     content=ft.Text("Close", style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20, color="#D4E1FF")),
                     on_click=lambda _: self.close()
                 )
             ],
-            actions_alignment=ft.MainAxisAlignment.CENTER
+            actions_alignment=ft.MainAxisAlignment.CENTER,
+            content=self.content()
         )
-
-    def content(self):
-        return ft.Column(
-            [ft.TextField(
-                label="Name.",
-                filled=True,
-                border_radius=variables['radius'],
-                border_width=variables['border_width'],
-                height=variables['height']
-            ),
-            ft.TextField(
-                label="Ubication.",
-                filled=True,
-                border_radius=variables['radius'],
-                border_width=variables['border_width'],
-                height=variables['height']
-            )],
-            alignment=ft.MainAxisAlignment.START, expand=True, scroll=ft.ScrollMode.ALWAYS
-        )
-
-    def open(self):
-        self.modal.content = self.content()
         self.page.dialog = self.modal
         self.modal.open = True
         self.page.update()
     
     def close(self):
         self.modal.open = False
+        self.modal = None
         self.page.update()
 
 def add(function):
