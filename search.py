@@ -7,8 +7,10 @@ variables = GetVariables()
 SearchDropwdown = ft.Dropdown(
     label_style=ft.TextStyle(size=10),
     options=[
+        ft.dropdown.Option("Code"),
         ft.dropdown.Option("Name"),
-        ft.dropdown.Option("Ubication")
+        ft.dropdown.Option("Ubication"),
+        ft.dropdown.Option("Supplier")
     ],
     filled=True,
     border_radius=variables['radius'],

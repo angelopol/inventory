@@ -11,15 +11,18 @@ class AddModal:
         self.inventory = inventory
 
     def AddItem(self):
-        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value)
+        photo = ""
+        if self.photo.result != None:
+            photo = self.photo.result.files[0].path
+        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value, photo)
         if validate: return validate
         
-        StoreItem(self.name.value, self.ubication.value, self.code.value, self.supplier.value)
+        StoreItem(self.name.value, self.ubication.value, self.code.value, self.supplier.value, photo)
         self.inventory.update()
         alert(self.page, "Item added.")
 
     def content(self):
-        content, self.name, self.ubication, self.code, self.supplier = ItemForm()
+        content, self.name, self.ubication, self.code, self.supplier, self.photo = ItemForm(page=self.page)
         return content
 
     def open(self):

@@ -12,10 +12,13 @@ class ItemModal:
         self.inventory = inventory
 
     def update(self):
-        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value)
+        photo = self.item[5]
+        if self.photo.result != None:
+            photo = self.photo.result.files[0].path
+        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value, photo)
         if validate: return validate
 
-        UpdateItem(self.item[0], self.name.value, self.ubication.value, self.code.value, self.supplier.value)
+        UpdateItem(self.item[0], self.name.value, self.ubication.value, self.code.value, self.supplier.value, photo)
         self.inventory.update()
         alert(self.page, "Item updated.")
 
@@ -25,7 +28,7 @@ class ItemModal:
         alert(self.page, "Item deleted.")
 
     def content(self):
-        content, self.name, self.ubication, self.code, self.supplier = ItemForm(self.item[1], self.item[2], self.item[3], self.item[4])
+        content, self.name, self.ubication, self.code, self.supplier, self.photo = ItemForm(self.item[1], self.item[2], self.item[3], self.item[4], self.page, self.item[5])
         return content
 
     def open(self):
@@ -73,10 +76,21 @@ class items:
 
         for item in InventoryItems:
             modal = ItemModal(self.page, item, self)
+            RowContent = [
+                ft.Container(
+                    ft.Image(src=item[5], height=(variables['height']*2)-20, border_radius=ft.border_radius.all(30), fit=ft.ImageFit.FIT_HEIGHT),
+                    padding=ft.Padding(20, 10, 20, 10)
+                ),
+                ft.Text(item[3] + ': ' + item[1] + ', ' + item[2] + ', ' + item[4], style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20))
+            ]
+            height = variables['height']*2
+            if item[5] == "":
+                RowContent.pop(0)
+                height = variables['height']
             elements.append(ft.ResponsiveRow([
                 ft.TextButton(
-                    content=ft.Text(item[3] + ': ' + item[1] + ', ' + item[2] + ', ' + item[4], style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20)),
-                    on_click=lambda _, modal=modal: modal.open(), expand=True, height=variables['height'], col=12
+                    content=ft.Row(RowContent),
+                    on_click=lambda _, modal=modal: modal.open(), expand=True, height=height, col=12
                 )
             ]))
 
