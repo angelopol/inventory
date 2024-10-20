@@ -11,15 +11,15 @@ class AddModal:
         self.inventory = inventory
 
     def AddItem(self):
-        validate = ValidateInputs(self.name.value, self.ubication.value, self.page)
+        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value)
         if validate: return validate
         
-        StoreItem(self.name.value, self.ubication.value)
+        StoreItem(self.name.value, self.ubication.value, self.code.value, self.supplier.value)
         self.inventory.update()
         alert(self.page, "Item added.")
 
     def content(self):
-        content, self.name, self.ubication = ItemForm()
+        content, self.name, self.ubication, self.code, self.supplier = ItemForm()
         return content
 
     def open(self):

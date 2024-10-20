@@ -1,6 +1,6 @@
 import flet as ft
 from variables import GetVariables
-from db import GetItems, GetItemsByName, GetItemsByUbication
+from db import GetItemsByName, GetItemsByUbication, GetItemsBySupplier, GetItemsByCode
 
 variables = GetVariables()
 
@@ -24,8 +24,12 @@ def search(input, inventory):
     else:
         if SearchDropwdown.value == "Name":
             inventory.update(lambda: GetItemsByName(input.control.value))
-        else:
+        elif SearchDropwdown.value == "Ubication":
             inventory.update(lambda: GetItemsByUbication(input.control.value))
+        elif SearchDropwdown.value == "Supplier":
+            inventory.update(lambda: GetItemsBySupplier(input.control.value))
+        elif SearchDropwdown.value == "Code":
+            inventory.update(lambda: GetItemsByCode(input.control.value))
 
 def dropdown():
     return SearchDropwdown

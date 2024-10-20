@@ -12,10 +12,10 @@ class ItemModal:
         self.inventory = inventory
 
     def update(self):
-        validate = ValidateInputs(self.name.value, self.ubication.value, self.page)
+        validate = ValidateInputs(self.name.value, self.ubication.value, self.page, self.code.value, self.supplier.value)
         if validate: return validate
 
-        UpdateItem(self.item[0], self.name.value, self.ubication.value)
+        UpdateItem(self.item[0], self.name.value, self.ubication.value, self.code.value, self.supplier.value)
         self.inventory.update()
         alert(self.page, "Item updated.")
 
@@ -25,7 +25,7 @@ class ItemModal:
         alert(self.page, "Item deleted.")
 
     def content(self):
-        content, self.name, self.ubication = ItemForm(self.item[1], self.item[2])
+        content, self.name, self.ubication, self.code, self.supplier = ItemForm(self.item[1], self.item[2], self.item[3], self.item[4])
         return content
 
     def open(self):
@@ -75,7 +75,7 @@ class items:
             modal = ItemModal(self.page, item, self)
             elements.append(ft.ResponsiveRow([
                 ft.TextButton(
-                    content=ft.Text(item[1] + ', ' + item[2], style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20)),
+                    content=ft.Text(item[3] + ': ' + item[1] + ', ' + item[2] + ', ' + item[4], style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=20)),
                     on_click=lambda _, modal=modal: modal.open(), expand=True, height=variables['height'], col=12
                 )
             ]))

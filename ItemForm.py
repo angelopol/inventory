@@ -31,11 +31,20 @@ class alert:
         self.modal = None
         self.page.update()
 
-def ValidateInputs(name, ubication, page):
-    if name == "" or ubication == "":
+def ValidateInputs(name, ubication, page, code, supplier):
+    if name == "" or ubication == "" or code == "" or supplier == "":
         return alert(page, "Please fill all fields.")
 
-def ItemForm(NameValue="", UbicationValue=""):
+def ItemForm(NameValue="", UbicationValue="", CodeValue="", SupplierValue=""):
+    code = ft.TextField(
+        label="Code.",
+        filled=True,
+        border_radius=variables['radius'],
+        border_width=variables['border_width'],
+        height=variables['height'],
+        max_length=1000,
+        value=CodeValue
+    )
     name = ft.TextField(
         label="Name.",
         filled=True,
@@ -44,6 +53,15 @@ def ItemForm(NameValue="", UbicationValue=""):
         height=variables['height'],
         max_length=1000,
         value=NameValue
+    )
+    supplier = ft.TextField(
+        label="Supplier.",
+        filled=True,
+        border_radius=variables['radius'],
+        border_width=variables['border_width'],
+        height=variables['height'],
+        max_length=1000,
+        value=SupplierValue
     )
     ubication = ft.TextField(
         label="Ubication.",
@@ -54,4 +72,4 @@ def ItemForm(NameValue="", UbicationValue=""):
         max_length=1000,
         value=UbicationValue
     )
-    return ft.Column([name, ubication],alignment=ft.MainAxisAlignment.START, expand=True, scroll=ft.ScrollMode.ALWAYS), name, ubication
+    return ft.Column([code, name, supplier, ubication],alignment=ft.MainAxisAlignment.START, expand=True, scroll=ft.ScrollMode.ALWAYS), name, ubication, code, supplier

@@ -9,6 +9,9 @@
 - id
 - name
 - ubication
+- code
+- supplier
+- photo
 - created_at
 
 ## Technologies:
